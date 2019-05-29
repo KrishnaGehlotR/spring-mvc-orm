@@ -16,7 +16,10 @@
 
 	<!-- Enable autowire -->
 	<context:annotation-config />
-	<context:component-scan base-package="org.mvcorm" />
+	<context:component-scan base-package="org.mvcorm.controller" />
+	<context:component-scan base-package="org.mvcorm.dao" />
+	<context:component-scan base-package="org.mvcorm.dto" />
+	<context:component-scan base-package="org.mvcorm.service" />
 	<mvc:annotation-driven />
 	<mvc:resources location="/resources/"
 		mapping="/resources/**" />

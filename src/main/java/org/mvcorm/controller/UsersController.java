@@ -22,7 +22,7 @@ public class UsersController {
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ModelAndView getPage() {
-		ModelAndView view = new ModelAndView("users");
+		ModelAndView view = new ModelAndView("users.jsp");
 		return view;
 	}
 
@@ -37,6 +37,7 @@ public class UsersController {
 		return map;
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> getAllUsers(UsersDTO usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -53,6 +54,7 @@ public class UsersController {
 		return map;
 	}
 
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> delete(UsersDTO usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
