@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.mvcorm.dto.UsersDTO;
-import org.mvcorm.service.UserService;
+import org.mvcorm.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class UsersController {
 
 	@Autowired
-	UserService userService;
+	UsersService userService;
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ModelAndView getPage() {
-		ModelAndView view = new ModelAndView("users.jsp");
+		ModelAndView view = new ModelAndView("users");
 		return view;
 	}
 
