@@ -1,6 +1,4 @@
-package org.mvcorm.dto;
-
-import java.io.Serializable;
+package org.mvcorm.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class UsersDTO implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 762263760453553806L;
+public class Users {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mvcorm.dto.UsersDTO;
+import org.mvcorm.model.Users;
 import org.mvcorm.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> getSaved(UsersDTO usersDTO) {
+	public @ResponseBody Map<String, Object> getSaved(Users usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		if (userService.saveOrUpdate(usersDTO)) {
@@ -38,10 +38,10 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> getAllUsers(UsersDTO usersDTO) {
+	public @ResponseBody Map<String, Object> getAllUsers(Users usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		List<UsersDTO> allUsersList = userService.getAllUsersList();
+		List<Users> allUsersList = userService.getAllUsersList();
 
 		if (allUsersList != null) {
 			map.put("status", "200");
@@ -55,7 +55,7 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> delete(UsersDTO usersDTO) {
+	public @ResponseBody Map<String, Object> delete(Users usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		if (userService.delete(usersDTO)) {

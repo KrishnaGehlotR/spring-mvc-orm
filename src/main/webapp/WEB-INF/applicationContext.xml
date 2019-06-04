@@ -16,16 +16,16 @@
 
 	<!-- Enable autowire -->
 	<context:annotation-config />
-	<context:component-scan base-package="org.mvcorm.controller" />
-	<context:component-scan base-package="org.mvcorm.dao" />
-	<context:component-scan base-package="org.mvcorm.dto" />
-	<context:component-scan base-package="org.mvcorm.service" />
+ 	<context:component-scan base-package="org.mvcorm.controller" />
+ 	<context:component-scan base-package="org.mvcorm.dao" />
+ 	<context:component-scan base-package="org.mvcorm.model" />
+ 	<context:component-scan base-package="org.mvcorm.service" />
+	
 	<mvc:annotation-driven />
-	<mvc:resources location="/resources/"
-		mapping="/resources/**" />
+	
+	<mvc:resources location="/resources/" mapping="/resources/**" />
 
-	<context:property-placeholder
-		location="classpath:db.properties" />
+	<context:property-placeholder location="classpath:db.properties" />
 
 	<!-- MySQL Database drivers and connectivity code -->
 	<bean id="dataSource"
@@ -43,17 +43,21 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.default_schema">${hibernate.schema}</prop>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">${hibernate.lazy}</prop>
+				<prop key="format_sql">${hibernate.format.sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl}</prop>
+				<prop key="use_sql_comments">${hibernate.use.sql.comments}</prop>
 			</props>
 		</property>
 	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
-	<tx:annotation-driven />
 
 </beans>
