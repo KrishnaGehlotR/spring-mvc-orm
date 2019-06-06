@@ -10,15 +10,15 @@
 		<param-name>ApplicationContext</param-name>
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
 	</context-param>
-	
+
 	<servlet>
-		<servlet-name>SpringMVC</servlet-name>
+		<servlet-name>SpringMvcOrm</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>SpringMVC</servlet-name>
+		<servlet-name>SpringMvcOrm</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
