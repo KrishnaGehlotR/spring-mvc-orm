@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mvcorm.dto.UserDTO;
+import org.mvcorm.mapper.UserMapper;
 import org.mvcorm.model.Users;
 import org.mvcorm.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class UsersController {
 	@Autowired
 	UsersService userService;
 
+	@Autowired
+	UserMapper userMapper;
+
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ModelAndView getPage() {
 		ModelAndView view = new ModelAndView("users");
@@ -27,10 +32,10 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> getSaved(Users usersDTO) {
+	public @ResponseBody Map<String, Object> getSaved(UserDTO usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
-
-		if (userService.saveOrUpdate(usersDTO)) {
+		Users user = userMapper.mapUserDTOToUser(usersDTO);
+		if (userService.saveOrUpdate(user)) {
 			map.put("status", "200");
 			map.put("message", "Records of " + usersDTO.getUsername() + " have been saved successfully");
 		}

@@ -16,10 +16,7 @@
 
 	<!-- Enable autowire -->
 	<context:annotation-config />
- 	<context:component-scan base-package="org.mvcorm.controller" />
- 	<context:component-scan base-package="org.mvcorm.dao" />
- 	<context:component-scan base-package="org.mvcorm.model" />
- 	<context:component-scan base-package="org.mvcorm.service" />
+ 	<context:component-scan base-package="org.mvcorm" />
 	
 	<mvc:annotation-driven />
 	

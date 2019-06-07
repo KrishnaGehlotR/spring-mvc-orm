@@ -17,8 +17,8 @@ public class UsersDAO {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	public boolean saveOrUpdate(Users usersDTO) {
-		sessionFactory.getCurrentSession().saveOrUpdate(usersDTO);
+	public boolean saveOrUpdate(Users users) {
+		sessionFactory.getCurrentSession().saveOrUpdate(users);
 		return true;
 	}
 	
@@ -27,9 +27,9 @@ public class UsersDAO {
 		return sessionFactory.getCurrentSession().createQuery("from Users").list();
 	}
 	
-	public boolean deleteUsers(Users usersDTO) {
+	public boolean deleteUsers(Users users) {
 		try {
-			sessionFactory.getCurrentSession().delete(usersDTO);
+			sessionFactory.getCurrentSession().delete(users);
 		} catch (Exception e) {
 			return false;
 		}

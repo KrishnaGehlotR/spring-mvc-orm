@@ -14,19 +14,19 @@ public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId")
-	private int userId;
-	
+	private Integer userId;
+
 	@Column(name = "username")
 	private String username;
-	
+
 	@Column(name = "emailId")
 	private String emailId;
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

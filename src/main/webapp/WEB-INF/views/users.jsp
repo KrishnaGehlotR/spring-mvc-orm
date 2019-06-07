@@ -10,15 +10,14 @@
 </head>
 <body onload="load();">
 
-	<input type="hidden" id="userId"> Name:
-	<input type="text" id="name" required="required" name="username">
-	<br> Email:
-	<input type="email" id="email" required="required" name="emailId">
-	<br>
-	<button onclick="submit();">Submit</button>
+	<input type="hidden" id="userId" >
+	Name: <input type="text" id="name" required="required" name="username"><br></br>
+	Email: <input type="email" id="email" required="required" name="emailId"><br></br>
+	<button onclick="submit();">Submit</button><br></br>
 
-	<table id="table" border=1>
+	<table id="table" border=1 style="width: 100%;" >
 		<tr>
+			<th>SI NO.</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Edit</th>
@@ -32,11 +31,7 @@
 			$.ajax({
 				url : 'saveOrUpdate',
 				type : 'POST',
-				data : {
-					userId : $("#userId").val(),
-					username : $('#name').val(),
-					email : $('#email').val()
-				},
+				data : { userId:$('#userId').val(), username:$('#name').val(), emailId:$('#email').val() },
 				success : function(response) {
 					alert(response.message);
 					load();
@@ -48,9 +43,7 @@
 			$.ajax({
 				url : 'delete',
 				type : 'POST',
-				data : {
-					userId : id
-				},
+				data : { userId : id },
 				success : function(response) {
 					alert(response.message);
 					load();
@@ -65,28 +58,17 @@
 		}
 
 		load = function() {
-			$
-					.ajax({
-						url : 'list',
-						type : 'POST',
-						success : function(response) {
-							data = response.data;
-							$('.tr').remove();
-							for (i = 0; i < response.data.length; i++) {
-								$("#table")
-										.append(
-												"<tr class='tr'> <td> "
-														+ response.data[i].username
-														+ " </td><td> </td> "
-														+ response.data[i].emailId
-														+ " <td> <a href='#' onclick= edit("
-														+ i
-														+ ");>Edit</a></td></td><td><a href='#' onclick='delete("
-														+ response.data[i].userId
-														+ ");'>Delete </a> </td> </tr>")
-							}
-						}
-					});
+			$.ajax({
+				url : 'list',
+				type : 'POST',
+				success : function(response) {
+					data = response.data;
+					$('.tr').remove();
+					for (i = 0; i < response.data.length; i++) {
+						$("#table").append( "<tr class='tr'> <td>"+response.data[i].userId+"</td><td> " + response.data[i].username + " </td><td> " + response.data[i].emailId + " </td> <td> <a href='#' onclick= edit(" + i + ");>Edit</a></td></td><td><a href='#' onclick='delete(" + response.data[i].userId + ");'>Delete </a> </td> </tr>")
+					}
+				}
+			});
 		}
 	</script>
 </body>
