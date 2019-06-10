@@ -16,11 +16,11 @@
 <body onload="load();">
 
 	<div id="submitform">
-		<input type="hidden" id="userId"> <label for="name">Name:</label>
-		<input type="text" id="name" required="required" name="username"
-			placeholder="Your name..."><br></br> <label for="email">Email:</label>
-		<input type="email" id="email" required="required" name="emailId"
-			placeholder="Your email address..."><br></br>
+		<input type="hidden" id="userId">
+		<label for="name">Name:<strong>*</strong></label>
+		<input type="text" id="name" required="required" name="username" placeholder="Your name..."><br></br>
+		<label for="email">Email:<strong>*</strong></label>
+		<input type="email" id="email" required="required" name="emailId" placeholder="Your email address..."><br></br>
 		<button id="submit" onclick="submit();">Submit</button>
 		<br></br>
 	</div>
