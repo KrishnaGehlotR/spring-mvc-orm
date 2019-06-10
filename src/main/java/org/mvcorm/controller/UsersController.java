@@ -35,9 +35,18 @@ public class UsersController {
 	public @ResponseBody Map<String, Object> getSaved(UserDTO usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		if (usersDTO.getUserId() == null && usersDTO.getUsername().isEmpty() && usersDTO.getEmailId().isEmpty()) {
+		if (usersDTO == null) {
 			map.put("status", "404");
-			map.put("message", "Please fill the required details");
+			map.put("message", "Mandatory fields are required");
+		} else if (usersDTO.getUsername().isEmpty() && usersDTO.getEmailId().isEmpty()) {
+			map.put("status", "404");
+			map.put("message", "Name and Email is required");
+		} else if (usersDTO.getUsername().isEmpty()) {
+			map.put("status", "404");
+			map.put("message", "Name is required");
+		} else if (usersDTO.getEmailId().isEmpty()) {
+			map.put("status", "404");
+			map.put("message", "Email is required");
 		} else {
 			if (userService.isEmailIdPresent(usersDTO.getEmailId())) {
 				map.put("status", "200");
