@@ -1,11 +1,16 @@
 package org.mvcorm.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "users")
@@ -19,8 +24,16 @@ public class Users {
 	@Column(name = "username")
 	private String username;
 
-	@Column(name = "emailId")
+	@Column(name = "emailId", unique = true)
 	private String emailId;
+	
+	@CreationTimestamp
+	@Column(name = "creationDate")
+	private Timestamp creationDate;
+	
+	@UpdateTimestamp
+	@Column(name = "modifiedDate")
+	private Timestamp modifiedDate;
 
 	public Integer getUserId() {
 		return userId;
@@ -44,5 +57,21 @@ public class Users {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	public Timestamp getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Timestamp creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 }

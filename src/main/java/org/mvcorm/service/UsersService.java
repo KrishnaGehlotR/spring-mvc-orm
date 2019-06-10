@@ -24,4 +24,20 @@ public class UsersService {
 	public boolean delete(Users usersDTO) {
 		return usersDAO.deleteUsers(usersDTO);
 	}
+
+	public String getUsernameById(Integer identifier) {
+		return usersDAO.getUsernameById(identifier);
+	}
+
+	public boolean isEmailIdPresent(String emailId) {
+		boolean isEmailIdPresent = false;
+		List<Users> allUsers = usersDAO.getAllUsers();
+		for (Users users : allUsers) {
+			if (users.getEmailId().equals(emailId)) {
+				isEmailIdPresent = true;
+				break;
+			}
+		}
+		return isEmailIdPresent;
+	}
 }

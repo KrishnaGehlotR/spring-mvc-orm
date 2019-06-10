@@ -13,26 +13,32 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class UsersDAO {
 
-	
 	@Autowired
 	SessionFactory sessionFactory;
-	
+
 	public boolean saveOrUpdate(Users users) {
 		sessionFactory.getCurrentSession().saveOrUpdate(users);
 		return true;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Users> getAllUsers(){
+	public List<Users> getAllUsers() {
 		return sessionFactory.getCurrentSession().createQuery("from Users").list();
 	}
-	
+
 	public boolean deleteUsers(Users users) {
 		try {
 			sessionFactory.getCurrentSession().delete(users);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+
+	public String getUsernameById(Integer identifier) {
+		return (String) sessionFactory.getCurrentSession()
+				.createQuery("SELECT username FROM Users WHERE userId=:Identifier")
+				.setParameter("Identifier", identifier).uniqueResult();
 	}
 }

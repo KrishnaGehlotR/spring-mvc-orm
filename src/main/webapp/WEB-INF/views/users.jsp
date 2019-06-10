@@ -1,21 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Users</title>
+<title>User Details</title>
+
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="<c:url value="/resources/js/main.js" />"></script>
+
 </head>
 <body onload="load();">
 
-	<input type="hidden" id="userId" >
-	Name: <input type="text" id="name" required="required" name="username"><br></br>
-	Email: <input type="email" id="email" required="required" name="emailId"><br></br>
-	<button onclick="submit();">Submit</button><br></br>
+	<div id="submitform">
+		<input type="hidden" id="userId"> <label for="name">Name:</label>
+		<input type="text" id="name" required="required" name="username"
+			placeholder="Your name..."><br></br> <label for="email">Email:</label>
+		<input type="email" id="email" required="required" name="emailId"
+			placeholder="Your email address..."><br></br>
+		<button id="submit" onclick="submit();">Submit</button>
+		<br></br>
+	</div>
 
-	<table id="table" border=1 style="width: 100%;" >
+	<div>
+		<table id="users">
 		<tr>
 			<th>SI NO.</th>
 			<th>Name</th>
@@ -24,52 +35,7 @@
 			<th>Delete</th>
 		</tr>
 	</table>
+	</div>
 
-	<script type="text/javascript">
-		data = "";
-		submit = function() {
-			$.ajax({
-				url : 'saveOrUpdate',
-				type : 'POST',
-				data : { userId:$('#userId').val(), username:$('#name').val(), emailId:$('#email').val() },
-				success : function(response) {
-					alert(response.message);
-					load();
-				}
-			});
-		}
-
-		delete_ = function(id) {
-			$.ajax({
-				url : 'delete',
-				type : 'POST',
-				data : { userId : id },
-				success : function(response) {
-					alert(response.message);
-					load();
-				}
-			});
-		}
-
-		edit = function(index) {
-			$("#userId").val(data[index].userId);
-			$("#name").val(data[index].username);
-			$('#email').val(data[index].email);
-		}
-
-		load = function() {
-			$.ajax({
-				url : 'list',
-				type : 'POST',
-				success : function(response) {
-					data = response.data;
-					$('.tr').remove();
-					for (i = 0; i < response.data.length; i++) {
-						$("#table").append( "<tr class='tr'> <td>"+response.data[i].userId+"</td><td> " + response.data[i].username + " </td><td> " + response.data[i].emailId + " </td> <td> <a href='#' onclick= edit(" + i + ");>Edit</a></td></td><td><a href='#' onclick='delete(" + response.data[i].userId + ");'>Delete </a> </td> </tr>")
-					}
-				}
-			});
-		}
-	</script>
 </body>
 </html>

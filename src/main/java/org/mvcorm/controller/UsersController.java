@@ -34,11 +34,23 @@ public class UsersController {
 	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> getSaved(UserDTO usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		Users user = userMapper.mapUserDTOToUser(usersDTO);
-		if (userService.saveOrUpdate(user)) {
-			map.put("status", "200");
-			map.put("message", "Records of " + usersDTO.getUsername() + " have been saved successfully");
+
+		if (usersDTO.getUserId() == null && usersDTO.getUsername().isEmpty() && usersDTO.getEmailId().isEmpty()) {
+			map.put("status", "404");
+			map.put("message", "Please fill the required details");
+		} else {
+			if (userService.isEmailIdPresent(usersDTO.getEmailId())) {
+				map.put("status", "200");
+				map.put("message", "Email id is already registered");
+			} else {
+				Users user = userMapper.mapUserDTOToUser(usersDTO);
+				if (userService.saveOrUpdate(user)) {
+					map.put("status", "200");
+					map.put("message", "Records of " + usersDTO.getUsername() + " has been saved successfully");
+				}
+			}
 		}
+
 		return map;
 	}
 
@@ -60,12 +72,13 @@ public class UsersController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> delete(Users usersDTO) {
+	public @ResponseBody Map<String, Object> delete(UserDTO usersDTO) {
 		Map<String, Object> map = new HashMap<String, Object>();
-
-		if (userService.delete(usersDTO)) {
+		Users user = userMapper.mapUserDTOToUser(usersDTO);
+		String username = userService.getUsernameById(usersDTO.getUserId());
+		if (userService.delete(user)) {
 			map.put("status", "200");
-			map.put("message", "Records of " + usersDTO.getUsername() + " have been deleted successfully");
+			map.put("message", "Records of " + username + " has been deleted successfully");
 		}
 		return map;
 	}
